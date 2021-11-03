@@ -49,4 +49,6 @@ jobs:
         with:
           services-to-start: 'parity-node0'
       - name: Integration Test
-        run: npm run test
+        run: |
+          npm run deploy
+          npm run test

@@ -38,13 +38,20 @@ describe("Rewards distribution", () => {
         const tr = await tx.wait()
         assert.deepEqual(tr.events.map(e => e.event), ["Transfer"])
 
-        console.log("Token: %s", mainnet.token)
-        console.log("Distributor: %s", deployedDistributor.address)
-        console.log("Balance: %s", (await token.balanceOf(deployedDistributor.address)).toString())
+        // console.log("Token: %s", mainnet.token)
+        // console.log("Distributor: %s", deployedDistributor.address)
+        // console.log("Balance: %s", (await token.balanceOf(deployedDistributor.address)).toString())
 
         console.log("Starting with env = %o", env)
         const { stdout, stderr } = await exec(`${process.execPath} index.js`, { env })
         console.log("stdout:", stdout);
         console.error("stderr:", stderr);
+
+        const targetAddress = "0x0001D577750221C08bEF4A908833f855eAf27243"
+        const targetAmount = parseEther("39.5038420844966")
+        const targetBalance = await token.balanceOf(targetAddress)
+        console.log("Expect: %s", targetAmount.toString())
+        console.log("Actual: %s", targetBalance.toString())
+        assert(targetBalance.gte(targetAmount))
     })
 })

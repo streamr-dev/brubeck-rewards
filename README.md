@@ -1,5 +1,7 @@
 # Token distribution contract
 
+[![CI](https://github.com/jtakalai/brubeck-rewards/actions/workflows/ci.yaml/badge.svg)](https://github.com/jtakalai/brubeck-rewards/actions/workflows/ci.yaml)
+
 ## Usage
 
 1. Deploy the contract

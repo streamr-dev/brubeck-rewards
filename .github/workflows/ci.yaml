@@ -3,11 +3,11 @@ name: Continuous Integration
 on:
   pull_request:
     branches:
-      - master
+      - main
       - release/*
   push:
     branches:
-      - master
+      - main
       - release/*
 
 jobs:
@@ -49,4 +49,6 @@ jobs:
         with:
           services-to-start: 'parity-node0'
       - name: Integration Test
-        run: npm run test
+        run: |
+          npm run deploy
+          npm run test

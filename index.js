@@ -13,8 +13,8 @@ const {
     BATCH_SIZE = "100",
     SLEEP_MS = "1000",
     ETHEREUM_URL = "http://localhost:8545",
-    KEY = "0x5e98cce00cff5dea6b454889f359a4ec06b9fa6b88e9d69b86de8e1c81887da0",
-    ADDRESS = "0xff7e560af55633148588BFA1Cb4Ec71f3fDE11B9",
+    KEY,
+    ADDRESS,
 } = process.env
 
 if (!KEY) { throw new Error("KEY environment variable is required for signing `send` transactions") }

@@ -29,28 +29,35 @@ const wallet = new Wallet(env.KEY, provider)
 const TokenJson = require("../artifacts/contracts/TestToken.sol/TestToken.json")
 const token = new Contract(mainnet.token, TokenJson.abi, wallet)
 
-// const log = require("debug")("Streamr:distributor:test")
-
 describe("Rewards distribution", () => {
     it("happy path works", async function() {
         this.timeout(60000)
+
+        // send tokens and native tokens to the contract
         const tx = await token.mint(deployedDistributor.address, parseEther("1000"))
         const tr = await tx.wait()
         assert.deepEqual(tr.events.map(e => e.event), ["Transfer"])
-
-        // console.log("Token: %s", mainnet.token)
-        // console.log("Distributor: %s", deployedDistributor.address)
-        // console.log("Balance: %s", (await token.balanceOf(deployedDistributor.address)).toString())
+        const tx2 = await wallet.sendTransaction({
+            to: deployedDistributor.address,
+            value: parseEther("1000"),
+        })
+        await tx2.wait()
+        const nativeBalanceBefore = await provider.getBalance(deployedDistributor.address)
+        assert(nativeBalanceBefore.gt(0))
 
         console.log("Starting with env = %o", env)
         const { stderr } = await exec(`${process.execPath} index.js`, { env })
         assert.equal(stderr, "")
 
+        // pick random sample from rewards-test.csv
         const targetAddress = "0x0001D577750221C08bEF4A908833f855eAf27243"
         const targetAmount = parseEther("39.5038420844966")
         const targetBalance = await token.balanceOf(targetAddress)
         console.log("Expect: %s", targetAmount.toString())
         console.log("Actual: %s", targetBalance.toString())
         assert(targetBalance.gte(targetAmount))
+        const nativeBalance = await provider.getBalance(targetAddress)
+        console.log("Native: %s", nativeBalance.toString())
+        assert(nativeBalance.gte(parseEther("0.009")))
     })
 })

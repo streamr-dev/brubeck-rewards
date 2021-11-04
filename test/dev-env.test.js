@@ -43,9 +43,8 @@ describe("Rewards distribution", () => {
         // console.log("Balance: %s", (await token.balanceOf(deployedDistributor.address)).toString())
 
         console.log("Starting with env = %o", env)
-        const { stdout, stderr } = await exec(`${process.execPath} index.js`, { env })
-        console.log("stdout:", stdout);
-        console.error("stderr:", stderr);
+        const { stderr } = await exec(`${process.execPath} index.js`, { env })
+        assert.equal(stderr, "")
 
         const targetAddress = "0x0001D577750221C08bEF4A908833f855eAf27243"
         const targetAmount = parseEther("39.5038420844966")

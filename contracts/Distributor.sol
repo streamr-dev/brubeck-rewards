@@ -32,6 +32,7 @@ contract Distributor {
 
     function withdrawAll() onlyOwner public {
         token.transfer(owner, token.balanceOf(address(this)));
+        payable(owner).transfer(address(this).balance);
     }
 
     function setStipend(uint newStipendWei) onlyOwner public {

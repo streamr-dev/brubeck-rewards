@@ -7,11 +7,13 @@ contract Distributor {
     IERC20 public token;
 
     address public owner;
+    uint public stipend = 0.01 ether; // estimate from https://polygonscan.com/tokentxns
 
     constructor(address _token) {
         token = IERC20(_token);
         owner = msg.sender;
     }
+    receive() external payable {}
 
     modifier onlyOwner {
         require(msg.sender == owner, "error_onlyOwner");
@@ -24,10 +26,16 @@ contract Distributor {
             address recipient = recipients[i];
             uint amount = amounts[i];
             require(token.transfer(recipient, amount), "error_transfer");
+            payable(recipient).transfer(stipend);
         }
     }
 
     function withdrawAll() onlyOwner public {
         token.transfer(owner, token.balanceOf(address(this)));
+        payable(owner).transfer(address(this).balance);
+    }
+
+    function setStipend(uint newStipendWei) onlyOwner public {
+        stipend = newStipendWei;
     }
 }

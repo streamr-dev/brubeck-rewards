@@ -4,8 +4,9 @@
 
 ## Usage
 
-1. Deploy the contract
-1. Send tokens into contract
+1. Deploy the contract (argument = address of the token to distribute) 
+1. Send distributed tokens into contract
+1. Send native token into the contract (stipends to recipients so that they can transfer the token forward)
 1. Call send with the intended targets' addresses and amounts
 
 ## Costs

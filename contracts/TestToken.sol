@@ -6,7 +6,6 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /**
  * Mintable TestToken for contract tests
- * Transfers of 666 are rejected with return value false
  */
 contract TestToken is ERC20 {
     constructor (string memory name, string memory symbol) ERC20(name, symbol) {

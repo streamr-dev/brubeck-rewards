@@ -2,23 +2,17 @@
 pragma solidity 0.8.6;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Distributor {
+contract Distributor is Ownable {
     IERC20 public token;
 
-    address public owner;
     uint public stipend = 0.01 ether; // estimate from https://polygonscan.com/tokentxns
 
-    constructor(address _token) {
+    constructor(address _token) Ownable() {
         token = IERC20(_token);
-        owner = msg.sender;
     }
     receive() external payable {}
-
-    modifier onlyOwner {
-        require(msg.sender == owner, "error_onlyOwner");
-        _;
-    }
 
     function send(address[] calldata recipients, uint[] calldata amounts) external {
         require(recipients.length == amounts.length);
@@ -31,8 +25,8 @@ contract Distributor {
     }
 
     function withdrawAll() onlyOwner public {
-        token.transfer(owner, token.balanceOf(address(this)));
-        payable(owner).transfer(address(this).balance);
+        token.transfer(owner(), token.balanceOf(address(this)));
+        payable(owner()).transfer(address(this).balance);
     }
 
     function setStipend(uint newStipendWei) onlyOwner public {

@@ -1,11 +1,9 @@
-const { mainnet /* , xdai*/ } = require("data-union-config")[process.env.ENV || "dev"]
-
 module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy } = deployments
-    const { deployer } = await getNamedAccounts()
+    const { deployer, DATA } = await getNamedAccounts()
     await deploy("Distributor", {
         from: deployer,
-        args: [mainnet.token],
+        args: [DATA],
         log: true,
     })
 }

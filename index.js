@@ -8,11 +8,12 @@ const {
 
 const {
     INPUT = "rewards.csv",
-    START = "0",
+    START = "",
     END = "Infinity",
     BATCH_SIZE = "100",
     SLEEP_MS = "1000",
     ETHEREUM_URL = "http://localhost:8545",
+    STATE_FILE_NAME = "last_rewarded_index.txt",
     KEY,
     ADDRESS,
 } = process.env
@@ -46,12 +47,19 @@ async function sendRewards(targets) {
     const tx = await distributor.send(addresses, amounts)
     const tr = await tx.wait()
     console.log("Gas spent: %s", tr.gasUsed.toString())
+
+    // persist the last rewarded index for automatic recovery
+    if (STATE_FILE_NAME) {
+        await fs.writeFile(STATE_FILE_NAME, last.index)
+    }
 }
 
 async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
-    const rawInput = (await fs.readFile(INPUT, "utf8")).split("\n").slice(START, END)
+    const lastRewardedIndex = STATE_FILE_NAME && fs.existsSync(STATE_FILE_NAME) ? +fs.readFileSync(STATE_FILE_NAME, "utf8") : -1
+    const startIndex = START !== "" ? +START : lastRewardedIndex + 1
+    const rawInput = (await fs.readFile(INPUT, "utf8")).split("\n").slice(startIndex, END)
     let sum = parseEther("0")
     const input = rawInput.map(line => {
         const [index, rawAddress, floatReward] = line.split(",")

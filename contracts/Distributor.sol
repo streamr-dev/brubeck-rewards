@@ -7,14 +7,18 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Distributor is Ownable {
     IERC20 public token;
 
+    address public agent;
+
     uint public stipend = 0.01 ether; // estimate from https://polygonscan.com/tokentxns
 
     constructor(address _token) Ownable() {
         token = IERC20(_token);
+        agent = owner();
     }
     receive() external payable {}
 
     function send(address[] calldata recipients, uint[] calldata amounts) external {
+        require(_msgSender() == agent, "error_onlyAgent");
         require(recipients.length == amounts.length);
         for (uint i = 0; i < recipients.length; i++) {
             address recipient = recipients[i];
@@ -24,12 +28,16 @@ contract Distributor is Ownable {
         }
     }
 
-    function withdrawAll() onlyOwner public {
+    function setAgent(address newAgent) onlyOwner external {
+        agent = newAgent;
+    }
+
+    function withdrawAll() onlyOwner external {
         token.transfer(owner(), token.balanceOf(address(this)));
         payable(owner()).transfer(address(this).balance);
     }
 
-    function setStipend(uint newStipendWei) onlyOwner public {
+    function setStipend(uint newStipendWei) onlyOwner external {
         stipend = newStipendWei;
     }
 }

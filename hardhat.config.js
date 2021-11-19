@@ -44,6 +44,8 @@ module.exports = {
             100: "0x256eb8a51f382650B2A1e946b8811953640ee47D",
             56: "0x0864c156b3c5f69824564dec60c629ae6401bf2a",
             137: "0x3a9A81d576d83FF21f26f325066054540720fC34",
+            8995: "0xbAA81A0179015bE47Ad439566374F2Bae098686F",
+            8997: "0x73Be21733CC5D08e1a14Ea9a399fb27DB3BEf8fF",
         },
         deployer: {
             default: 0, // take the first account as deployer

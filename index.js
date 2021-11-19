@@ -58,7 +58,7 @@ async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
     const lastRewardedIndex = STATE_FILE_NAME && fs.existsSync(STATE_FILE_NAME) ? +fs.readFileSync(STATE_FILE_NAME, "utf8") : -1
-    const startIndex = START === "" ? +START : lastRewardedIndex + 1
+    const startIndex = START !== "" ? +START : lastRewardedIndex + 1
     const rawInput = (await fs.readFile(INPUT, "utf8")).split("\n").slice(startIndex, END)
     let sum = parseEther("0")
     const input = rawInput.map(line => {

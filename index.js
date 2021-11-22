@@ -45,8 +45,9 @@ async function sendRewards(targets) {
     const addresses = targets.map(({ address }) => address)
     const amounts = targets.map(({ reward }) => reward)
     const tx = await distributor.send(addresses, amounts)
+    console.log("Sent tx: https://polygonscan.com/tx/%s", tx.hash)
     const tr = await tx.wait()
-    console.log("Gas spent: %s", tr.gasUsed.toString())
+    console.log("Tx complete, gas spent: %s", tr.gasUsed.toString())
 
     // persist the last rewarded index for automatic recovery
     if (STATE_FILE_NAME) {

@@ -3,7 +3,7 @@ const {
     providers: { JsonRpcProvider },
     Wallet,
     Contract,
-    utils: { getAddress, parseEther }
+    utils: { getAddress, parseEther, formatEther }
 } = require("ethers")
 
 const {
@@ -68,6 +68,7 @@ async function main() {
         sum = sum.add(reward)
         return { index, address, reward }
     })
+    console.log("Starting from index %d, %d in total, distributing %s tokens in total", startIndex, input.length, formatEther(sum))
 
     const tokenAddress = await distributor.token()
     const token = new Contract(tokenAddress, TokenJson.abi, wallet)

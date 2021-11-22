@@ -74,13 +74,13 @@ async function main() {
     const token = new Contract(tokenAddress, TokenJson.abi, wallet)
     const tokenBalance = await token.balanceOf(contractAddress)
     if (tokenBalance.lt(sum)) {
-        throw new Error(`Not enough tokens in the contract ${contractAddress}: ${tokenBalance} < ${sum}`)
+        throw new Error(`Not enough tokens in the contract ${contractAddress}: ${formatEther(tokenBalance)} < ${formatEther(sum)}, difference = ${formatEther(sum.sub(tokenBalance))}`)
     }
     const nativeBalance = await provider.getBalance(contractAddress)
     const stipendWei = await distributor.stipend()
     const nativeNeeded = stipendWei.mul(input.length)
     if (nativeBalance.lt(nativeNeeded)) {
-        throw new Error(`Not enough ether in the contract ${contractAddress}: ${nativeBalance} < ${nativeNeeded}`)
+        throw new Error(`Not enough ether in the contract ${contractAddress}: ${formatEther(nativeBalance)} < ${formatEther(nativeNeeded)}, difference = ${formatEther(nativeNeeded.sub(nativeBalance))}`)
     }
 
     for (let i = 0; i < input.length; i += batchSize) {

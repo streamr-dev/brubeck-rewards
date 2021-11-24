@@ -2,9 +2,10 @@
   "name": "brubeck-rewards",
   "version": "0.0.1",
   "description": "Distribution of Brubeck testnet rewards",
-  "main": "index.js",
+  "main": "src/distribute.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/distribute.js",
+    "check": "ts-node src/check.ts",
     "lint": "eslint *.js test deploy",
     "build": "hardhat compile",
     "deploy": "hardhat deploy --network dev",
@@ -14,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
-    "data-union-config": "^2.2.0"
+    "data-union-config": "^2.2.0",
+    "ts-node": "^10.4.0"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",

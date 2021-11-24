@@ -7,7 +7,7 @@ const {
 } = require("ethers")
 
 const {
-    INPUT = "rewards.csv",
+    INPUT = "src/rewards.csv",
     START = "",
     END = "Infinity",
     BATCH_SIZE = "100",
@@ -28,10 +28,10 @@ const provider = new JsonRpcProvider(ETHEREUM_URL)
 const wallet = new Wallet(KEY, provider)
 
 const contractAddress = getAddress(ADDRESS)
-const DistributorJson = require("./artifacts/contracts/Distributor.sol/Distributor.json")
+const DistributorJson = require("../artifacts/contracts/Distributor.sol/Distributor.json")
 const distributor = new Contract(contractAddress, DistributorJson.abi, wallet)
 
-const TokenJson = require("./artifacts/contracts/TestToken.sol/TestToken.json")
+const TokenJson = require("../artifacts/contracts/TestToken.sol/TestToken.json")
 
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))

@@ -8,6 +8,11 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
     "rules": {
         "accessor-pairs": "error",
         "array-bracket-newline": "error",
@@ -238,7 +243,6 @@
             }
         ],
         "semi-style": "error",
-        "sort-imports": "error",
         "sort-keys": "off",
         "sort-vars": "error",
         "space-before-blocks": "error",

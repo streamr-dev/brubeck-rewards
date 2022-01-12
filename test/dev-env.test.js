@@ -1,5 +1,5 @@
 // recommended by https://nodejs.org/api/child_process.html#child_processexeccommand-options-callback
-const util = require("util");
+const util = require("util")
 const exec = util.promisify(require("child_process").exec)
 
 const assert = require("assert")

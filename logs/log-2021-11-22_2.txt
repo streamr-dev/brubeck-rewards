@@ -1,0 +1,8 @@
+Connected to network {
+  name: 'matic',
+  chainId: 137,
+  ensAddress: null,
+  _defaultProvider: null
+}
+Starting from index 15501, 114385 in total, distributing 1760676.6644035647597544 tokens in total
+Sending indexes "15502"..."15502", addresses 0x1ec9f6c46aC9D2362F53db21D30d3f4C81Ba5918...0x1ec9f6c46aC9D2362F53db21D30d3f4C81Ba5918

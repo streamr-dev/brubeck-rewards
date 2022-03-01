@@ -15,7 +15,7 @@ const { dev: { mainnet /* , xdai*/ } } = require("data-union-config")
 const distributorDeploymentJson = require("../deployments/dev/Distributor.json")
 
 const env = {
-    INPUT: "test/rewards-test.csv",
+    INPUT: "test/rewards-test-format2.csv",
     ETHEREUM_URL: "http://localhost:8545",
     BATCH_SIZE: 7,
     SLEEP_MS: 0,

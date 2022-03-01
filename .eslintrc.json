@@ -40,10 +40,6 @@
             "always"
         ],
         "camelcase": "error",
-        "capitalized-comments": [
-            "error",
-            "never"
-        ],
         "class-methods-use-this": "error",
         "comma-dangle": "off",
         "comma-spacing": [
@@ -97,12 +93,10 @@
         "jsx-quotes": "error",
         "key-spacing": "error",
         "keyword-spacing": "error",
-        "line-comment-position": "off",
         "linebreak-style": [
             "error",
             "unix"
         ],
-        "lines-around-comment": "error",
         "lines-between-class-members": "error",
         "max-classes-per-file": "error",
         "max-depth": "error",
@@ -113,7 +107,6 @@
         "max-params": "error",
         "max-statements": "off",
         "max-statements-per-line": "off",
-        "multiline-comment-style": "off",
         "new-cap": "error",
         "new-parens": "error",
         "no-alert": "error",
@@ -138,7 +131,6 @@
         "no-floating-decimal": "error",
         "no-implicit-globals": "error",
         "no-implied-eval": "error",
-        "no-inline-comments": "off",
         "no-invalid-this": "error",
         "no-iterator": "error",
         "no-label-var": "error",
@@ -194,7 +186,6 @@
         "no-useless-return": "error",
         "no-var": "error",
         "no-void": "error",
-        "no-warning-comments": "error",
         "no-whitespace-before-property": "error",
         "nonblock-statement-body-position": "error",
         "object-curly-newline": "error",
@@ -253,10 +244,6 @@
         ],
         "space-infix-ops": "error",
         "space-unary-ops": "error",
-        "spaced-comment": [
-            "error",
-            "always"
-        ],
         "strict": [
             "error",
             "never"

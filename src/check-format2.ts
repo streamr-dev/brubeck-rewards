@@ -5,11 +5,11 @@ import { getAddress, parseEther, formatEther } from "ethers/lib/utils"
 const { JsonRpcProvider } = providers
 
 const {
-    INPUT = "src/rewards.csv",
+    INPUT = "data/2022-03-01.csv",
     START = "0",
     END = "Infinity",
     SLEEP_MS = "100",
-    ETHEREUM_URL = "http://localhost:8545",
+    ETHEREUM_URL,
     ADDRESS,
 } = process.env
 
@@ -19,8 +19,8 @@ const sleepMs = +SLEEP_MS
 
 const provider = new JsonRpcProvider(ETHEREUM_URL)
 
-const contractAddress = getAddress(ADDRESS)
-const DistributorJson = require("../artifacts/contracts/Distributor.sol/Distributor.json")
+const DistributorJson = require("../deployments/matic/Distributor.json")
+const contractAddress = getAddress(ADDRESS || DistributorJson.address)
 const distributor = new Contract(contractAddress, DistributorJson.abi, provider)
 
 const TokenJson = require("../artifacts/contracts/TestToken.sol/TestToken.json")
@@ -29,15 +29,22 @@ async function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+type Target = {
+    index: number
+    address: string
+    reward: BigNumber
+}
+
 async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
     const rawInput = (await readFile(INPUT, "utf8")).split("\n").slice(+START, +END)
     let sum = parseEther("0")
-    const input = rawInput.map(line => {
-        const [index, rawAddress, floatReward] = line.split(",")
-        const address = getAddress(rawAddress.slice(1, -1)) // remove quotes
-        const reward = parseEther(floatReward.toString())
+    const input = rawInput.map((line, index): Target => {
+        const [rawAddress, floatReward] = line.split(",")
+        // console.log("%s: %s, %s", index, rawAddress, floatReward)
+        const address = getAddress(rawAddress)
+        const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
         sum = sum.add(reward)
         return { index, address, reward }
     })

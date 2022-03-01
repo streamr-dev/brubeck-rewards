@@ -1,18 +1,22 @@
-// this file is a simplified version of distribute.js for the purpose of 2021-dec-airdrop
+// format1: "index","address",reward i.e. index and address are quoted, reward is not
+// e.g.: "1","0x00000a9A7c4Afe3DB554a2df54e9a0ec9d485080",0.37808553932401
 
-import { readFile } from "fs/promises"
-import { providers, Contract, Wallet, BigNumber } from "ethers"
-import { getAddress, parseEther, formatEther } from "ethers/lib/utils"
-
-const { JsonRpcProvider } = providers
+const fs = require("fs/promises")
+const {
+    providers: { JsonRpcProvider },
+    Wallet,
+    Contract,
+    utils: { getAddress, parseEther, formatEther }
+} = require("ethers")
 
 const {
-    INPUT = "src/2021-dec-airdrop.csv",
-    START = "0",
+    INPUT = "data/2021-11-22-testnet.csv",
+    START = "",
     END = "Infinity",
     BATCH_SIZE = "100",
     SLEEP_MS = "1000",
-    ETHEREUM_URL,
+    ETHEREUM_URL = "http://localhost:8545",
+    STATE_FILE_NAME = "last_rewarded_index.txt",
     KEY,
     ADDRESS,
 } = process.env
@@ -26,23 +30,17 @@ const sleepMs = +SLEEP_MS
 const provider = new JsonRpcProvider(ETHEREUM_URL)
 const wallet = new Wallet(KEY, provider)
 
-const contractAddress = getAddress(ADDRESS)
-const DistributorJson = require("../artifacts/contracts/Distributor.sol/Distributor.json")
+const DistributorJson = require("../deployments/matic/Distributor.json")
+const contractAddress = getAddress(ADDRESS || DistributorJson.address)
 const distributor = new Contract(contractAddress, DistributorJson.abi, wallet)
 
 const TokenJson = require("../artifacts/contracts/TestToken.sol/TestToken.json")
 
-async function sleep(ms: number) {
+async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-type Target = {
-    index: number
-    address: string
-    reward: BigNumber
-}
-
-async function sendRewards(targets: Target[]) {
+async function sendRewards(targets) {
     const first = targets[0]
     const last = targets[targets.length - 1]
     console.log("Sending indexes %s...%s, addresses %s...%s", first.index, last.index, first.address, last.address)
@@ -53,21 +51,28 @@ async function sendRewards(targets: Target[]) {
     console.log("Sent tx: https://polygonscan.com/tx/%s", tx.hash)
     const tr = await tx.wait()
     console.log("Tx complete, gas spent: %s", tr.gasUsed.toString())
+
+    // persist the last rewarded index for automatic recovery
+    if (STATE_FILE_NAME) {
+        await fs.writeFile(STATE_FILE_NAME, last.index)
+    }
 }
 
 async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
-    const rawInput = (await readFile(INPUT, "utf8")).split("\n").slice(+START, +END)
+    const lastRewardedIndex = +await fs.readFile(STATE_FILE_NAME, "utf8").then(JSON.parse).catch(() => -1) // ignore missing file
+    const startIndex = START !== "" ? +START : lastRewardedIndex // csv file is 1-indexed so this actually works out fine
+    const rawInput = (await fs.readFile(INPUT, "utf8")).split("\n").slice(startIndex, END)
     let sum = parseEther("0")
-    const input = rawInput.map((line, index): Target => {
-        const [rawAddress, floatReward] = line.split(",")
-        const address = getAddress(rawAddress)
+    const input = rawInput.map(line => {
+        const [index, rawAddress, floatReward] = line.split(",")
+        const address = getAddress(rawAddress.slice(1, -1)) // remove quotes
         const reward = parseEther(floatReward.toString())
         sum = sum.add(reward)
         return { index, address, reward }
     })
-    console.log("Starting from index %d, %d in total, distributing %s tokens in total", START, input.length, formatEther(sum))
+    console.log("Starting from index %d, %d in total, distributing %s tokens in total", startIndex, input.length, formatEther(sum))
 
     const tokenAddress = await distributor.token()
     const token = new Contract(tokenAddress, TokenJson.abi, wallet)

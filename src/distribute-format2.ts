@@ -11,15 +11,15 @@ import { getAddress, parseEther, formatEther, parseUnits } from "ethers/lib/util
 const { JsonRpcProvider } = providers
 
 const {
-    INPUT = "data/2022-03-01.csv",
+    INPUT = "data/2022-04-01-rewards.csv",
     START = "0",
     END = "Infinity",
     BATCH_SIZE = "100",
     SLEEP_MS = "1000",
     GASPRICE_GWEI = "100",
-    ETHEREUM_URL,
+    ETHEREUM_URL = "https://polygon-rpc.com",
     KEY,
-    ADDRESS,
+    ADDRESS = "0x3979f7d6b5c5bfa4bcd441b4f35bfa0731ccfaef",
 } = process.env
 
 if (!KEY) { throw new Error("KEY environment variable is required for signing `send` transactions") }

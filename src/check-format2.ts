@@ -47,7 +47,7 @@ async function main() {
         const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
         sum = sum.add(reward)
         return { index, address, reward }
-    })
+    }).filter(target => target.reward.gt(0)) // filter out zero reward lines
     const stipendWei = await distributor.stipend()
     const totalStipends = stipendWei.mul(input.length)
     console.log("Starting from index %d, %d in total, expecting %s tokens and %s native-tokens in total", START, input.length, formatEther(sum), formatEther(totalStipends))
@@ -58,16 +58,19 @@ async function main() {
     const contractNativeBalance = await provider.getBalance(contractAddress)
     console.log("%s tokens and %s native-tokens left in the contract", formatEther(contractTokenBalance), formatEther(contractNativeBalance))
 
+    let okCount = 0
     for (let i = 0; i < input.length; i += 1) {
         const { index, address, reward } = input[i]
         const tokenBalance = await token.balanceOf(address) as BigNumber
         const nativeBalance = await provider.getBalance(address) as BigNumber
         const tokenOK = tokenBalance.gte(reward)
         const nativeOK = nativeBalance.gte(stipendWei)
+        okCount += tokenOK && nativeOK ? 1 : 0
         console.log(`${tokenOK && nativeOK ? "[ OK ]" : "[fail]"} ${index} ${address}`)
         if (!tokenOK) { console.error(`${address} DATA  ${tokenBalance} < ${reward}`) }
         if (!nativeOK) { console.error(`${address} MATIC ${nativeBalance} < ${stipendWei}`) }
         await sleep(sleepMs)
     }
+    console.log("%d / %d OK", okCount, input.length)
 }
 main().catch(console.error)

@@ -5,12 +5,12 @@ import { getAddress, parseEther, formatEther } from "ethers/lib/utils"
 const { JsonRpcProvider } = providers
 
 const {
-    INPUT = "data/2022-03-01.csv",
+    INPUT = "data/2022-06-01-rewards.csv",
     START = "0",
     END = "Infinity",
     SLEEP_MS = "100",
-    ETHEREUM_URL,
-    ADDRESS,
+    ETHEREUM_URL = "https://polygon-rpc.com",
+    ADDRESS = "0x3979f7d6b5c5bfa4bcd441b4f35bfa0731ccfaef",
 } = process.env
 
 if (!ADDRESS) { throw new Error("ADDRESS environment variable is required: the Distributor contract address") }

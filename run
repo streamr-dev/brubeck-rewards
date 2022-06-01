@@ -1,0 +1,2 @@
+npx ts-node src/distribute-format2.ts |tee logs/log-2022-06-01-rewards.txt
+npx ts-node src/check-format2.ts &> logs/log-2022-06-01-check.txt

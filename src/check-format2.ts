@@ -5,7 +5,7 @@ import { getAddress, parseEther, formatEther } from "ethers/lib/utils"
 const { JsonRpcProvider } = providers
 
 const {
-    INPUT = "data/2022-06-01-rewards.csv",
+    INPUT = "data/2022-07-04-rewards.csv",
     START = "0",
     END = "Infinity",
     SLEEP_MS = "100",

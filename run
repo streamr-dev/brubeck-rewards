@@ -1,2 +1,7 @@
-npx ts-node src/distribute-format2.ts |tee logs/log-2022-07-04-rewards.txt
-npx ts-node src/check-format2.ts &> logs/log-2022-07-04-check.txt
+#!/bin/bash
+set -ex
+DATE=2022-08-01
+export INPUT=data/${DATE}-rewards.csv
+npx ts-node src/distribute-format2.ts |tee logs/log-${DATE}-rewards.txt
+npx ts-node src/check-format2.ts &> logs/log-${DATE}-check.txt
+grep --after=2 fail logs/log-2022-${DATE}-* |grep -v "\[" > logs/${DATE}-todo-check.txt

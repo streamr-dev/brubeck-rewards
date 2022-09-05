@@ -5,7 +5,7 @@ import { getAddress, parseEther, formatEther } from "ethers/lib/utils"
 const { JsonRpcProvider } = providers
 
 const {
-    INPUT = "data/2022-07-04-rewards.csv",
+    INPUT,
     START = "0",
     END = "Infinity",
     SLEEP_MS = "100",
@@ -14,6 +14,7 @@ const {
 } = process.env
 
 if (!ADDRESS) { throw new Error("ADDRESS environment variable is required: the Distributor contract address") }
+if (!INPUT) { throw new Error("INPUT environment variable is required: the rewards csv file") }
 
 const sleepMs = +SLEEP_MS
 
@@ -38,7 +39,7 @@ type Target = {
 async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
-    const rawInput = (await readFile(INPUT, "utf8")).split("\n").slice(+START, +END)
+    const rawInput = (await readFile(INPUT!, "utf8")).split("\n").slice(+START, +END)
     let sum = parseEther("0")
     const input = rawInput.map((line, index): Target => {
         const [rawAddress, floatReward] = line.split(",")

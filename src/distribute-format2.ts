@@ -11,7 +11,7 @@ import { getAddress, parseEther, formatEther, parseUnits } from "ethers/lib/util
 const { JsonRpcProvider } = providers
 
 const {
-    INPUT = "data/2022-07-04-rewards.csv",
+    INPUT,
     START = "0",
     END = "Infinity",
     BATCH_SIZE = "100",
@@ -24,6 +24,7 @@ const {
 
 if (!KEY) { throw new Error("KEY environment variable is required for signing `send` transactions") }
 if (!ADDRESS) { throw new Error("ADDRESS environment variable is required: the Distributor contract address") }
+if (!INPUT) { throw new Error("INPUT environment variable is required: the rewards csv file") }
 
 const batchSize = +BATCH_SIZE
 const sleepMs = +SLEEP_MS
@@ -65,7 +66,7 @@ async function sendRewards(targets: Target[]) {
 async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
-    const rawInput = (await readFile(INPUT, "utf8")).split("\n").slice(+START, +END)
+    const rawInput = (await readFile(INPUT!, "utf8")).split("\n").slice(+START, +END)
     let sum = parseEther("0")
     const input = rawInput.map((line, index): Target => {
         const [rawAddress, floatReward] = line.split(",")

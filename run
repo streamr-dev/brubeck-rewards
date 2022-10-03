@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-DATE=2022-09-01
+DATE=2022-10-01
 export INPUT=data/${DATE}-rewards.csv
 npx ts-node src/distribute.ts |tee logs/log-${DATE}-rewards.txt
 npx ts-node src/check.ts &> logs/log-${DATE}-check.txt

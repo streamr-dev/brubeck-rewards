@@ -10,7 +10,19 @@ const {
     Contract,
     utils: { parseEther }
 } = require("ethers")
-const { dev: { mainnet /* , xdai*/ } } = require("data-union-config")
+
+const { networks: {
+    dev1: {
+        rpcEndpoints: [
+            {
+                url: ethereumUrl
+            }
+        ],
+        contracts: {
+            DATA: tokenAddress
+        }
+    }
+} } = require("@streamr/config")
 
 const distributorDeploymentJson = require("../deployments/dev/Distributor.json")
 
@@ -24,11 +36,11 @@ const env = {
     ADDRESS: distributorDeploymentJson.address,
 }
 
-const provider = new JsonRpcProvider(mainnet.url)
+const provider = new JsonRpcProvider(ethereumUrl)
 const wallet = new Wallet(env.KEY, provider)
 
 const TokenJson = require("../artifacts/contracts/TestToken.sol/TestToken.json")
-const token = new Contract(mainnet.token, TokenJson.abi, wallet)
+const token = new Contract(tokenAddress, TokenJson.abi, wallet)
 
 const DistributorJson = require("../artifacts/contracts/Distributor.sol/Distributor.json")
 const distributor = new Contract(distributorDeploymentJson.address, DistributorJson.abi, wallet)
@@ -50,7 +62,7 @@ describe("Rewards distribution", () => {
         assert(nativeBalanceBefore.gt(0))
 
         console.log("Starting with env = %o", env)
-        const { stderr } = await exec(`${process.execPath} index.js`, { env })
+        const { stderr } = await exec(`${process.execPath} src/distribute.js`, { env })
         assert.equal(stderr, "")
 
         // pick random sample from rewards-test.csv

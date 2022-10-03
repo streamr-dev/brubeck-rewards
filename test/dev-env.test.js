@@ -12,7 +12,7 @@ const {
 } = require("ethers")
 
 const { networks: {
-    dev1: {
+    dev0: {
         rpcEndpoints: [
             {
                 url: ethereumUrl
@@ -28,7 +28,7 @@ const distributorDeploymentJson = require("../deployments/dev/Distributor.json")
 
 const env = {
     INPUT: "test/rewards-test.csv",
-    ETHEREUM_URL: "http://localhost:8545",
+    ETHEREUM_URL: ethereumUrl,
     BATCH_SIZE: 7,
     SLEEP_MS: 0,
     KEY: "0x5e98cce00cff5dea6b454889f359a4ec06b9fa6b88e9d69b86de8e1c81887da0",

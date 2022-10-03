@@ -7,7 +7,7 @@
     "start": "node src/distribute.js",
     "check": "ts-node src/check.ts",
     "lint": "eslint src test deploy && eslint src --ext .ts",
-    "build": "hardhat compile && npx tsc --target esnext --moduleResolution node src/*.ts",
+    "build": "hardhat compile && npx tsc --target esnext --moduleResolution node --module commonjs src/*.ts",
     "deploy": "hardhat deploy --network dev",
     "test": "mocha"
   },

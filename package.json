@@ -7,7 +7,7 @@
     "start": "node src/distribute.js",
     "check": "ts-node src/check.ts",
     "lint": "eslint src test deploy && eslint src --ext .ts",
-    "build": "hardhat compile",
+    "build": "hardhat compile && npx tsc --target esnext --moduleResolution node --module commonjs src/*.ts",
     "deploy": "hardhat deploy --network dev",
     "test": "mocha"
   },
@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
-    "data-union-config": "^2.2.0",
+    "@streamr/config": "2.4.0",
     "ts-node": "^10.8.2",
     "typescript": "^4.7.4"
   },

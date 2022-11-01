@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
-DATE=2022-08-01
+DATE=2022-10-01
 export INPUT=data/${DATE}-rewards.csv
-npx ts-node src/distribute-format2.ts |tee logs/log-${DATE}-rewards.txt
-npx ts-node src/check-format2.ts &> logs/log-${DATE}-check.txt
-grep --after=2 fail logs/log-2022-${DATE}-* |grep -v "\[" > logs/${DATE}-todo-check.txt
+npx ts-node src/distribute.ts |tee logs/log-${DATE}-rewards.txt
+npx ts-node src/check.ts &> logs/log-${DATE}-check.txt
+grep --after=2 fail logs/log-${DATE}-check.txt |grep -v "\[" > logs/${DATE}-todo-check.txt

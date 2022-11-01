@@ -4,7 +4,7 @@
   "description": "Distribution of Brubeck testnet rewards",
   "main": "src/distribute.js",
   "scripts": {
-    "start": "node src/distribute.js",
+    "start": "ts-node src/distribute.ts",
     "check": "ts-node src/check.ts",
     "lint": "eslint src test deploy && eslint src --ext .ts",
     "build": "hardhat compile && npx tsc --target esnext --moduleResolution node --module commonjs src/*.ts",

@@ -36,19 +36,27 @@ type Target = {
     reward: BigNumber
 }
 
+const forbiddenAddresses = new Set([
+    "0x3a9A81d576d83FF21f26f325066054540720fC34",
+    "0x0000000000000000000000000000000000000000",
+])
+
 async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
     const rawInput = (await readFile(INPUT!, "utf8")).split("\n").slice(+START, +END)
     let sum = parseEther("0")
-    const input = rawInput.map((line, index): Target => {
-        const [rawAddress, floatReward] = line.split(",")
-        // console.log("%s: %s, %s", index, rawAddress, floatReward)
-        const address = getAddress(rawAddress)
-        const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
-        sum = sum.add(reward)
-        return { index, address, reward }
-    }).filter(target => target.reward.gt(0)) // filter out zero reward lines
+    const input = rawInput
+        .map((line, index): Target => {
+            const [rawAddress, floatReward] = line.split(",")
+            // console.log("%s: %s, %s", index, rawAddress, floatReward)
+            const address = getAddress(rawAddress)
+            const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
+            sum = sum.add(reward)
+            return { index, address, reward }
+        })
+        .filter(target => target.reward.gt(0)) // filter out zero reward lines
+        .filter(target => !forbiddenAddresses.has(target.address)) // filter out stupid stuff like DATA address
     const stipendWei = await distributor.stipend()
     const totalStipends = stipendWei.mul(input.length)
     console.log("Starting from index %d, %d in total, expecting %s tokens and %s native-tokens in total", START, input.length, formatEther(sum), formatEther(totalStipends))

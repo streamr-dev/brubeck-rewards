@@ -19,11 +19,11 @@ const {
     GASPRICE_GWEI = "100",
     ETHEREUM_URL = "https://polygon-rpc.com",
     KEY,
-    ADDRESS = "0x3979f7d6b5c5bfa4bcd441b4f35bfa0731ccfaef",
+    ADDRESS,
 } = process.env
 
 if (!KEY) { throw new Error("KEY environment variable is required for signing `send` transactions") }
-// if (!ADDRESS) { throw new Error("ADDRESS environment variable is required: the Distributor contract address") }
+if (!ADDRESS) { throw new Error("ADDRESS environment variable is required: the Distributor contract address") }
 if (!INPUT) { throw new Error("INPUT environment variable is required: the rewards csv file") }
 
 const batchSize = +BATCH_SIZE

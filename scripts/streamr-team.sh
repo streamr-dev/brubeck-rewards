@@ -1,0 +1,11 @@
+#!/bin/bash
+set -ex
+
+# produces e.g. 2021-11-01
+DATE=$(node -p "new Date().toISOString().substring(0,10)")
+
+export INPUT=data/streamr-team/${DATE}.csv
+export ADDRESS=0x4f9c39FD42010c1bDFf33e8176caf66b9F5F356b
+npx ts-node src/distribute.ts |tee logs/streamr-team/run-${DATE}.txt
+npx ts-node src/check.ts &> logs/streamr-team/check-${DATE}.txt
+grep --after=2 fail logs/streamr-team/check-${DATE}.txt |grep -v "\[" > logs/streamr-team/todo-check-${DATE}.txt

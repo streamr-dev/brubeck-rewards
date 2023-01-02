@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
-DATE=2022-11-01
+
+# produces e.g. 2021-11-01
+DATE=$(node -p "new Date().toISOString().substring(0,10)")
 
 export ADDRESS=0x3979f7d6b5c5bfa4bcd441b4f35bfa0731ccfaef
 export INPUT=data/${DATE}-rewards.csv

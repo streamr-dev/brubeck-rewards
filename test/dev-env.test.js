@@ -92,8 +92,9 @@ describe("Rewards distribution", () => {
         this.timeout(60000)
 
         // the TestToken can't receive the stipend, so the tx will throw. Add its address to the list
-        const factory = new ContractFactory(TokenJson.abi, TokenJson.bytecode, wallet)
-        const testToken = await factory.deploy()
+        const testTokenFactory = new ContractFactory(TokenJson.abi, TokenJson.bytecode, wallet)
+        const testToken = await testTokenFactory.deploy("TestToken", "TEST")
+        await testToken.deployed()
         await fs.appendFile(env.INPUT, `\n${testToken.address},1.0`)
 
         // send tokens and native tokens to the contract

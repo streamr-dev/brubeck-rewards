@@ -56,6 +56,38 @@ const forbiddenAddresses = new Set([
     "0x0000000000000000000000000000000000000000",
 ])
 
+/**
+ * If the recipient is a smart contract that can't receive native tokens (MATIC), then if we try to send a stipend, the contract will revert. Ouch.
+ * Weed out the bad addresses with something like a binary search (we assume most addresses are good)
+ * @returns gasLimit if all addresses are good, undefined if some addresses were bad. This is to save a gas estimation call if all addresses were good.
+ */
+async function filterAddresses(addresses: string[], amounts: BigNumber[]): Promise<{ addresses: string[], amounts: BigNumber[], failed: string[], gasLimit?: BigNumber }> {
+    // console.log("filterAddresses: %o", addrs)
+    if (addresses.length < 1) { throw new Error("filterAddresses: empty addresses array") }
+    if (addresses.length !== amounts.length) { throw new Error("filterAddresses: addresses and amounts arrays have different lengths") }
+
+    let gasLimit = BigNumber.from(0)
+    try {
+        gasLimit = await distributor.estimateGas.send(addresses, amounts, { gasPrice })
+        return { addresses, amounts, failed: [], gasLimit }
+    } catch (e) {
+        const error = e as Error
+        if (!error.message.includes("Reverted")) { throw error }
+    }
+    // found it!
+    if (addresses.length === 1) {
+        return { addresses: [], amounts: [], failed: addresses, gasLimit: BigNumber.from(0) }
+    }
+    const partitionIndex = Math.floor(addresses.length / 2)
+    const left = await filterAddresses(addresses.slice(0, partitionIndex), amounts.slice(0, partitionIndex))
+    const right = await filterAddresses(addresses.slice(partitionIndex), amounts.slice(partitionIndex))
+    return {
+        addresses: left.addresses.concat(right.addresses),
+        amounts: left.amounts.concat(right.amounts),
+        failed: left.failed.concat(right.failed),
+    }
+}
+
 async function sendRewards(targets: Target[]) {
     const first = targets[0]
     const last = targets[targets.length - 1]
@@ -63,32 +95,6 @@ async function sendRewards(targets: Target[]) {
     const addresses = targets.map(({ address }) => address)
     const amounts = targets.map(({ reward }) => reward)
 
-    // weed out the bad addresses with something like a binary search (we assume most addresses are good)
-    async function filterAddresses(addrs: string[], amts: BigNumber[]): Promise<{ addresses: string[], amounts: BigNumber[], failed: string[], gasLimit?: BigNumber }> {
-        if (addrs.length < 1) { throw new Error("partitionAddresses: empty addresses array") }
-        if (addrs.length !== amts.length) { throw new Error("partitionAddresses: addresses and amounts arrays have different lengths") }
-
-        let gasLimit = BigNumber.from(0)
-        try {
-            gasLimit = await distributor.estimateGas.send(addrs, amts, { gasPrice })
-            return { addresses: addrs, amounts: amts, failed: [], gasLimit }
-        } catch (e) {
-            const error = e as Error
-            if (!e.message.includes("revert")) { throw error }
-        }
-        // found it!
-        if (addrs.length === 1) {
-            return { addresses: [], amounts: [], failed: addrs, gasLimit: BigNumber.from(0) }
-        }
-        const partitionIndex = Math.floor(addrs.length / 2)
-        const left = await filterAddresses(addrs.slice(0, partitionIndex), amts.slice(0, partitionIndex))
-        const right = await filterAddresses(addrs.slice(partitionIndex), amts.slice(partitionIndex))
-        return {
-            addresses: left.addresses.concat(right.addresses),
-            amounts: left.amounts.concat(right.amounts),
-            failed: left.failed.concat(right.failed),
-        }
-    }
     const filtered = await filterAddresses(addresses, amounts)
 
     if (filtered.failed.length > 0) {
@@ -96,8 +102,8 @@ async function sendRewards(targets: Target[]) {
     }
 
     const opts: Overrides = { gasPrice }
-    if (filtered.gasLimit) { opts.gasLimit = filtered.gasLimit } // if there were no failed addresses, why not avoid re-asking the gas limit...
-    const tx = await distributor.send(filtered.addresses, amounts, opts)
+    if (filtered.gasLimit) { opts.gasLimit = filtered.gasLimit } // if there were no failed addresses, skip re-asking the gas limit
+    const tx = await distributor.send(filtered.addresses, filtered.amounts, opts)
     console.log("Sent tx: https://polygonscan.com/tx/%s", tx.hash)
     const tr = await tx.wait()
     console.log("Tx complete, gas spent: %s", tr.gasUsed.toString())

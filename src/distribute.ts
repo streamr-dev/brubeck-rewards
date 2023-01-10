@@ -28,6 +28,7 @@ if (!INPUT) { throw new Error("INPUT environment variable is required: the rewar
 
 const batchSize = +BATCH_SIZE
 const sleepMs = +SLEEP_MS
+const startIndex = +START
 
 const gasPrice = parseUnits(GASPRICE_GWEI, "gwei")
 
@@ -71,15 +72,16 @@ async function sendRewards(targets: Target[]) {
 async function main() {
     console.log("Connected to network %o", await provider.getNetwork())
 
-    const rawInput = (await readFile(INPUT!, "utf8")).split("\n").slice(+START, +END)
+    const rawInput = (await readFile(INPUT!, "utf8")).split("\n").slice(startIndex, +END)
     let sum = parseEther("0")
     const input = rawInput
-        .map((line, index): Target => {
+        .map((line, i): Target => {
             const [rawAddress, floatReward] = line.split(",")
             // console.log("%s: %s, %s", index, rawAddress, floatReward)
             const address = getAddress(rawAddress)
             const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
             sum = sum.add(reward)
+            const index = startIndex + i + 1 // +1 to make it 1-indexed like in editors such as VSCode ;)
             return { index, address, reward }
         })
         .filter(target => target.reward.gt(0)) // filter out zero reward lines

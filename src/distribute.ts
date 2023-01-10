@@ -5,7 +5,7 @@
 // TODO: re-add stipend check!
 
 import { readFile } from "fs/promises"
-import { providers, Contract, Wallet, BigNumber } from "ethers"
+import { providers, Contract, Wallet, BigNumber, Overrides } from "ethers"
 import { getAddress, parseEther, formatEther, parseUnits } from "ethers/lib/utils"
 
 const { JsonRpcProvider } = providers
@@ -60,10 +60,44 @@ async function sendRewards(targets: Target[]) {
     const first = targets[0]
     const last = targets[targets.length - 1]
     console.log("Sending indexes %s...%s, addresses %s...%s", first.index, last.index, first.address, last.address)
-
     const addresses = targets.map(({ address }) => address)
     const amounts = targets.map(({ reward }) => reward)
-    const tx = await distributor.send(addresses, amounts, { gasPrice })
+
+    // weed out the bad addresses with something like a binary search (we assume most addresses are good)
+    async function filterAddresses(addrs: string[], amts: BigNumber[]): Promise<{ addresses: string[], amounts: BigNumber[], failed: string[], gasLimit?: BigNumber }> {
+        if (addrs.length < 1) { throw new Error("partitionAddresses: empty addresses array") }
+        if (addrs.length !== amts.length) { throw new Error("partitionAddresses: addresses and amounts arrays have different lengths") }
+
+        let gasLimit = BigNumber.from(0)
+        try {
+            gasLimit = await distributor.estimateGas.send(addrs, amts, { gasPrice })
+            return { addresses: addrs, amounts: amts, failed: [], gasLimit }
+        } catch (e) {
+            const error = e as Error
+            if (!e.message.includes("revert")) { throw error }
+        }
+        // found it!
+        if (addrs.length === 1) {
+            return { addresses: [], amounts: [], failed: addrs, gasLimit: BigNumber.from(0) }
+        }
+        const partitionIndex = Math.floor(addrs.length / 2)
+        const left = await filterAddresses(addrs.slice(0, partitionIndex), amts.slice(0, partitionIndex))
+        const right = await filterAddresses(addrs.slice(partitionIndex), amts.slice(partitionIndex))
+        return {
+            addresses: left.addresses.concat(right.addresses),
+            amounts: left.amounts.concat(right.amounts),
+            failed: left.failed.concat(right.failed),
+        }
+    }
+    const filtered = await filterAddresses(addresses, amounts)
+
+    if (filtered.failed.length > 0) {
+        console.log("Addresses that will be skipped: %o", filtered.failed)
+    }
+
+    const opts: Overrides = { gasPrice }
+    if (filtered.gasLimit) { opts.gasLimit = filtered.gasLimit } // if there were no failed addresses, why not avoid re-asking the gas limit...
+    const tx = await distributor.send(filtered.addresses, amounts, opts)
     console.log("Sent tx: https://polygonscan.com/tx/%s", tx.hash)
     const tr = await tx.wait()
     console.log("Tx complete, gas spent: %s", tr.gasUsed.toString())

@@ -47,8 +47,9 @@ async function main() {
     const rawInput = (await readFile(INPUT!, "utf8")).split("\n").slice(+START, +END)
     let sum = parseEther("0")
     const input = rawInput
-        .map((line, index): Target => {
+        .map((line, i): Target => {
             const [rawAddress, floatReward] = line.split(",")
+            const index = +START + i
             // console.log("%s: %s, %s", index, rawAddress, floatReward)
             const address = getAddress(rawAddress)
             const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws

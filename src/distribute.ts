@@ -91,7 +91,8 @@ async function filterAddresses(addresses: string[], amounts: BigNumber[]): Promi
 async function sendRewards(targets: Target[]) {
     const first = targets[0]
     const last = targets[targets.length - 1]
-    console.log("Sending indexes %s...%s, addresses %s...%s", first.index, last.index, first.address, last.address)
+    // +1 to make line numbers 1-indexed like in editors such as VSCode ;)
+    console.log("Sending at index %s, lines %s...%s, addresses %s...%s", first.index, first.index + 1, last.index + 1, first.address, last.address)
     const addresses = targets.map(({ address }) => address)
     const amounts = targets.map(({ reward }) => reward)
 
@@ -121,7 +122,7 @@ async function main() {
             const address = getAddress(rawAddress)
             const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
             sum = sum.add(reward)
-            const index = startIndex + i + 1 // +1 to make it 1-indexed like in editors such as VSCode ;)
+            const index = startIndex + i
             return { index, address, reward }
         })
         .filter(target => target.reward.gt(0)) // filter out zero reward lines

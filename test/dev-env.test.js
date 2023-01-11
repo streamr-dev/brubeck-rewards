@@ -1,6 +1,7 @@
 // recommended by https://nodejs.org/api/child_process.html#child_processexeccommand-options-callback
 const util = require("util")
 const exec = util.promisify(require("child_process").exec)
+const fs = require("fs").promises
 
 const assert = require("assert")
 
@@ -8,7 +9,8 @@ const {
     providers: { JsonRpcProvider },
     Wallet,
     Contract,
-    utils: { parseEther }
+    utils: { parseEther },
+    ContractFactory
 } = require("ethers")
 
 const { networks: {
@@ -46,6 +48,7 @@ const DistributorJson = require("../artifacts/contracts/Distributor.sol/Distribu
 const distributor = new Contract(distributorDeploymentJson.address, DistributorJson.abi, wallet)
 
 describe("Rewards distribution", () => {
+
     it("happy path works", async function() {
         this.timeout(60000)
 
@@ -83,5 +86,43 @@ describe("Rewards distribution", () => {
         const nativeBalanceAfter = await provider.getBalance(distributor.address)
         assert.equal(nativeBalanceAfter.toString(), "0")
         assert.equal(tokenBalanceAfter.toString(), "0")
+    })
+
+    it("skips smart contract recipients that cause the contract to revert", async function() {
+        this.timeout(60000)
+
+        // the TestToken can't receive the stipend, so the tx will throw. Add its address to the list
+        const testTokenFactory = new ContractFactory(TokenJson.abi, TokenJson.bytecode, wallet)
+        const testToken = await testTokenFactory.deploy("TestToken", "TEST")
+        await testToken.deployed()
+        await fs.appendFile(env.INPUT, `\n${testToken.address},1.0`)
+
+        // send tokens and native tokens to the contract
+        const tx = await token.mint(distributor.address, parseEther("1000"))
+        const tr = await tx.wait()
+        assert.deepEqual(tr.events.map(e => e.event), ["Transfer"])
+        const tx2 = await wallet.sendTransaction({
+            to: distributor.address,
+            value: parseEther("1000"),
+        })
+        await tx2.wait()
+        const nativeBalanceBefore = await provider.getBalance(distributor.address)
+        assert(nativeBalanceBefore.gt(0))
+
+        console.log("Starting with env = %o", env)
+        const { stderr } = await exec(`${process.execPath} src/distribute.js`, { env })
+        assert.equal(stderr, "")
+
+        const goodAddress = "0x0001D577750221C08bEF4A908833f855eAf27243"
+        const goodAmount = parseEther("39.5038420844966")
+        const goodBalance = await token.balanceOf(goodAddress)
+        const goodNativeBalance = await provider.getBalance(goodAddress)
+        assert(goodBalance.gte(goodAmount))
+        assert(goodNativeBalance.gte(parseEther("0.009")))
+
+        const badBalance = await token.balanceOf(testToken.address)
+        const badNativeBalance = await provider.getBalance(testToken.address)
+        assert.equal(badBalance.toString(), "0")
+        assert.equal(badNativeBalance.toString(), "0")
     })
 })

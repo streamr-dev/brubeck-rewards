@@ -4,6 +4,9 @@ coverage
 coverage.json
 typechain
 
-#Hardhat files
+# build artifacts when running the tests (like CI does)
+src/*.js
+
+# Hardhat files
 cache
 artifacts

@@ -1,0 +1,184 @@
+Connected to network {
+  name: 'matic',
+  chainId: 137,
+  ensAddress: null,
+  _defaultProvider: null
+}
+Starting from index 0, 5493 in total, distributing 1643399.999999999997908816 tokens in total
+Sending at index 0, lines 1...103, addresses 0x001468e47c32a817Fa5Af34b8396cB87E4093167...0x054450C8CE8575D650b0562a251E19F8EC975559
+Sent tx: https://polygonscan.com/tx/0x95fc16bd168645b0e6e5f10811a756d8e4e42d24e02704f61be18381cf76902c
+Tx complete, gas spent: 1507830
+Sending at index 103, lines 104...207, addresses 0x0555abA13Dff8830CbdE56c5b631D73Bc5de898e...0x0A673bABe4C15295B1a8c508d2873388f834F9A9
+Sent tx: https://polygonscan.com/tx/0x0572b07421f01b2ebad5e4a77117c5cc62591fb3c40aa974f6079e722115a4e7
+Tx complete, gas spent: 1525338
+Sending at index 207, lines 208...315, addresses 0x0A6C11224A10672dA5ff2E7F99F8c5cD8f728102...0x0f77c2F4c70E3AcB70184B710e6c6f1c62f182A3
+Sent tx: https://polygonscan.com/tx/0x9876594a0ebb033eb80630e1f864fdab548a3e0c292ee4b13bc42580cf2dc848
+Tx complete, gas spent: 1508178
+Sending at index 315, lines 316...419, addresses 0x0F800319dB871D24F4A421fE69F87b54cd0172d3...0x1419c64feFEB9BbFae43438AD1DF4c9aC640D315
+Sent tx: https://polygonscan.com/tx/0x569d426a1fb809e9c6cb4320e116f4f696e1b55b55f6fb875cbcf866e457ef54
+Tx complete, gas spent: 1439694
+Sending at index 419, lines 420...523, addresses 0x142aEfaeB10d2d1bA8E2EEbE0539B5c281eC8653...0x1940207bC75a937eFcf2ba3d4df80995eccfF1C0
+Sent tx: https://polygonscan.com/tx/0xe2438102fb06d055f6f5fa9805db2f2fee2b8eb3d9dd8b92a9ae74f68807cf65
+Tx complete, gas spent: 1525230
+Sending at index 523, lines 524...626, addresses 0x194a16F9282c54D626F65e05D2994C32A1f838d7...0x1d7EC0D544f1daD09dcAEbf099C59E3a9E10317a
+Sent tx: https://polygonscan.com/tx/0x94ae9016eee5d7d8a8a2ff290e2df4e32161ee89f2d51f6188ed9a7214ff8ba2
+Tx complete, gas spent: 1405530
+Sending at index 626, lines 627...729, addresses 0x1D854E3A7F5eb8c4BE8962764515e9aa0b5dfe26...0x2242488F2AAf7A02aAc91f81F4C69d07f8e2acc0
+Sent tx: https://polygonscan.com/tx/0x78a6191fa0accc42e7b6df19725379f938508c6d7bec1ade23d9c140fa726786
+Tx complete, gas spent: 1473942
+Sending at index 729, lines 730...831, addresses 0x2245f75f6015d3f29F834010Fd4862A42cc21A59...0x26ab49A8Ee4ABc163946Cc34Ce05a0950026CC00
+Sent tx: https://polygonscan.com/tx/0x3104b5d8c61ae298de1137c6f0241ba57cfb4d841773bd321d01c02085142d1e
+Tx complete, gas spent: 1576446
+Sending at index 831, lines 832...935, addresses 0x26b8929Ea7a6Cf2b5f92A5D86a7F98299a0a2bB8...0x2Ab4FB01ce8607c9c3A87ed7951FE0d2f5a00786
+Sent tx: https://polygonscan.com/tx/0xe556bf24e20ca8a9313bcb16a4aa992a1fdfb3fb88f39fb2af273e87019ed740
+Tx complete, gas spent: 1525146
+Sending at index 935, lines 936...1040, addresses 0x2aCBb9f464a7a117330b747F60730805EE5f6C83...0x2F8B7ae6522D051DB6edfD33d5c178641E249be1
+Sent tx: https://polygonscan.com/tx/0x25e709ea2b54dcadc892a2738de774e547418628628bf8f435210749a14d54d6
+Tx complete, gas spent: 1610706
+Sending at index 1040, lines 1041...1143, addresses 0x2F974FA9996eDE36256BeC67de6004Fe7ADAeE41...0x344aaf38bDE37CbaD8b6Ad69E5bf87eDD49b6Db7
+Sent tx: https://polygonscan.com/tx/0xf9f40f0b065a046334c89dc032064beafae5775afddd2604d59cb2219c699b43
+Tx complete, gas spent: 1456854
+Sending at index 1143, lines 1144...1246, addresses 0x34528A85d7435208558636b79308C2ceD9091eEE...0x39A11c5b98256F4B254e3ae41Bd480D2D1c2A08f
+Sent tx: https://polygonscan.com/tx/0xabc7e74fc34bdab1bacbe0198cc138d37b39fb6c48c116beb5611b41b03c9dbf
+Tx complete, gas spent: 1490934
+Sending at index 1246, lines 1247...1352, addresses 0x39Aa32936a71C592187AF321A607F80908e719D4...0x3eA3E2AeF16325c19832cb24601e26856b26Ff4e
+Sent tx: https://polygonscan.com/tx/0x361ab09da0b41b17622ce097a8b92c5dc8b65a8f5249f4a5aaed313b7dc1ad75
+Tx complete, gas spent: 1491042
+Sending at index 1352, lines 1353...1457, addresses 0x3eCD0f0ff911a2D1059f570b99DbE68640DA452e...0x43821354018D2F995C71872AA10535aD4eE82b67
+Sent tx: https://polygonscan.com/tx/0x0ca9701e5b283d7fd9d636e6480123e4872ab07ac297315488a0f6016dd1449c
+Tx complete, gas spent: 1473918
+Sending at index 1457, lines 1458...1560, addresses 0x438d24f9Fcd2E61BA5eF277CeA1F7542d980bfDB...0x4860F7E2cD05DD36B45cAA596b2e034c58064c58
+Sent tx: https://polygonscan.com/tx/0xbbc37338535ebaafac06ba130044470d4f06035781a508e201eff317d460b6c4
+Tx complete, gas spent: 1473978
+Sending at index 1560, lines 1561...1666, addresses 0x486587720d275C1EbA7fA580Ef88d7E60CfCFc6E...0x4d413Aca59e0505D7Bb4232Cd484794Eab504526
+Sent tx: https://polygonscan.com/tx/0xfbbcb8dcf02855cdffc848f197c8255698ba69b8bb263a348a96e4d65a625dfd
+Tx complete, gas spent: 1439706
+Sending at index 1666, lines 1667...1767, addresses 0x4d4E13EbcE65B4666950eF738FcF83F09AbffD2d...0x51D26344F58de9EE701C1B6a60b500408EC19C51
+Sent tx: https://polygonscan.com/tx/0xce417f4d2322e6e6e74fb58f6ce99c138aca7d6e210bed4aa17b57a4dcce6321
+Tx complete, gas spent: 1490946
+Sending at index 1767, lines 1768...1871, addresses 0x51f7C3d627bF57C7aEED2f175cdCe786d67C87a5...0x567dcDC498983867067292DE715b8B8287dFeDA9
+Sent tx: https://polygonscan.com/tx/0xb50b7430077fccb3f372cbd14662965de5802710ce379364115ce489471e41f9
+Tx complete, gas spent: 1525278
+Sending at index 1871, lines 1872...1972, addresses 0x568068dbF67d5f8AD4244AC5627341C08D5D6B8a...0x5aB4b00C8Dd3E9135C2f9fEE381fc47AF1FC4Dc9
+Error: nonce has already been used
+
+-- (snip) --
+
+Connected to network {
+  name: 'matic',
+  chainId: 137,
+  ensAddress: null,
+  _defaultProvider: null
+}
+Starting from index 1871, 3693 in total, distributing 1107730.627223527106485621 tokens in total
+Sending at index 1871, lines 1872...1972, addresses 0x568068dbF67d5f8AD4244AC5627341C08D5D6B8a...0x5aB4b00C8Dd3E9135C2f9fEE381fc47AF1FC4Dc9
+Sent tx: https://polygonscan.com/tx/0x1289b27deaa5e59a14c0ef476305c8872da72490521efbf99a93874b0c5356bd
+Tx complete, gas spent: 1456806
+Sending at index 1972, lines 1973...2074, addresses 0x5abf168C5cBb8D623C1C56Ddc41f87952040383d...0x5F894827e534739B711092C716214fF25Ca49fDb
+Sent tx: https://polygonscan.com/tx/0x174e07c4373ab57daacf4af82d15b23c42f8245b73fb3be09e5d4cc6e740143d
+Tx complete, gas spent: 1491042
+Sending at index 2074, lines 2075...2175, addresses 0x5f8A6C2dEF14D2ff5C1167497f64623f60EAE89b...0x63C4dF20D4d39B85476F7383eb7ee65B64c365bc
+Sent tx: https://polygonscan.com/tx/0x9b7ed442467d5a3f0f053dbaf973714ab498b4cb03e21f849694ee327e260443
+Tx complete, gas spent: 1422534
+Sending at index 2175, lines 2176...2281, addresses 0x63D5820bD04E51FDeB9af43D122aC3a595ab437e...0x690d5A5456845D9aa8f1ad0454b4CDCe5537588b
+Sent tx: https://polygonscan.com/tx/0xda0442e365d3e4d4a2ee8b24b559390f911009f8eb6d45ae2ceb3e861f5ed3b5
+Tx complete, gas spent: 1439706
+Sending at index 2281, lines 2282...2384, addresses 0x691Bfc39A8F21908D001b57dcBf06e3CA0F98972...0x6d977EB83652973796F4cD469aB7EcE3f55fcdE4
+Sent tx: https://polygonscan.com/tx/0xc12a15f1bcba388d3ad171acf82bc6109189910bb2bc2d51f8f99541eb1c4973
+Tx complete, gas spent: 1491018
+Sending at index 2384, lines 2385...2487, addresses 0x6DC2731f9ad3c845B895369F542E89B7ecf851C9...0x72E3E51121C0499CED68EE39388b2C0b2361FFC7
+Sent tx: https://polygonscan.com/tx/0x4f31f1cd56e242e1a54228bef04ff1a3c373b0259fb435b298559b9e04f03415
+Tx complete, gas spent: 1559334
+Sending at index 2487, lines 2488...2590, addresses 0x7300D3726cd463a1994890371895FaAc1310CE13...0x77186FE4Abb30b4261bCa904672DF7A5b73561dA
+Sent tx: https://polygonscan.com/tx/0x0085f991fa1df66eafde182dfdd8b4ec5f6036a02f5ad9cef33c61f051d78d88
+Tx complete, gas spent: 1525194
+Sending at index 2590, lines 2591...2692, addresses 0x771AedD8eC15F7baF008caDb85D573C1e2c8E5B2...0x7B161366Ff0A99A04C02c2e70252404b6E32e872
+Sent tx: https://polygonscan.com/tx/0x25b33d78f2441b0e76006f9f9ce837bc8ba19095d0a109bf639240ce5ed78d72
+Tx complete, gas spent: 1508118
+Sending at index 2692, lines 2693...2797, addresses 0x7b18a7D64C59591CB74693195cE13202717791b9...0x7f82E2F593AE1Aec6D499d0Dc133c8f5d38302D9
+Sent tx: https://polygonscan.com/tx/0x3343b41fd69da00861ee641e5251fca51076a42dc3646d68005dc78ebece077d
+Tx complete, gas spent: 1491042
+Sending at index 2797, lines 2798...2902, addresses 0x7f86EB447E5DE743a23d4Fd2847dCf2375faBf39...0x85214aE5792C60b8acbBF9C63E083b3c8AB6DB4D
+Sent tx: https://polygonscan.com/tx/0x0bf4581a23c30ffa48667cff8564eee85fc6f162e7a2388361b8d210272badf9
+Tx complete, gas spent: 1559442
+Sending at index 2902, lines 2903...3007, addresses 0x85226511ad91d793A6B5aa9A601F00d1736dbD2e...0x8A1DCBd7Bff319cEBfE4e2fd793d68a3F4896872
+Sent tx: https://polygonscan.com/tx/0x61f69d6151daf92ad323d007973861da0f0743a74e4685bac5f36a957bc98845
+Tx complete, gas spent: 1576542
+Sending at index 3007, lines 3008...3110, addresses 0x8a23A4C2D1aBAfb8C57ae951686BDe6CDAA99A06...0x8E634d6c90E888EAC54223b355153C7E0a722436
+Sent tx: https://polygonscan.com/tx/0x8429be7a85c87c3c70ab1c80e68e9aa676f5c3c636030ed705187f3a41fcdaa6
+Tx complete, gas spent: 1491042
+Sending at index 3110, lines 3111...3215, addresses 0x8e6445d8b018fe99e68F548f1CfEeE0253D7B181...0x9261d65023998B8cD5646534E8d452C91A8238d1
+Sent tx: https://polygonscan.com/tx/0x33ac9d18c984872b033ed571d02ff4d607f5eed15ba99168a90250a1895b2a00
+Tx complete, gas spent: 1525230
+Sending at index 3215, lines 3216...3319, addresses 0x926F6E37070Be90680729bA3dFf68eCA6fd545E4...0x96907bcc82e1a251dFA5bBc2254D47E250df08Fc
+Sent tx: https://polygonscan.com/tx/0xb219d27ccb353beb0c1feddb4046fa3057ebc029d22d423105083cc04e8a9b5b
+Tx complete, gas spent: 1559262
+Sending at index 3319, lines 3320...3421, addresses 0x969f70de418111C599d54994E011EC302Ec6cF79...0x9bF3992aa2320De52d56Cb155033f2671F0DE0e8
+Sent tx: https://polygonscan.com/tx/0xeb8f31ad38259ab0fc8f37d46daae9143fea896c8fa48dc4be0bb295bbd42a41
+Tx complete, gas spent: 1473858
+Sending at index 3421, lines 3422...3526, addresses 0x9bfB6C113A9a174867F39c52D277C141D772f176...0xA11834A09e5f6d780b669c3dD28eA16ce9bbd50A
+Sent tx: https://polygonscan.com/tx/0x78bc98b251f39b5fceb4480492d4f2e73a592ceefdd92b3f4f8275aeb26ab05e
+Tx complete, gas spent: 1473834
+Sending at index 3526, lines 3527...3633, addresses 0xA11bd75dE404751a2c087Ae4a7657B3e4c9a4C73...0xA668a7C7d2739347011e3699888C4bF7BbC7C8A7
+Sent tx: https://polygonscan.com/tx/0x1956582fdfa5fffcbb7fe038db13efbd77ea1ab9e3400256882b4488d4b6e409
+Tx complete, gas spent: 1439682
+Sending at index 3633, lines 3634...3736, addresses 0xa669B83a3c4231acf3DCa85dE456EcCc995ca5A0...0xaa9AF60bE3D3aEBb034df2a18FfC826Db7035a1a
+Sent tx: https://polygonscan.com/tx/0xdeb25e75e87ed81aff0d393ff69ddd653f09e0a27e826cad9168c7ea9bf80a25
+Tx complete, gas spent: 1456842
+Sending at index 3736, lines 3737...3842, addresses 0xAA9e3612832De77E5538cA9c79f2241e9C4d2e46...0xAFf97025DCD4D2e4a553Bc891DDCC5a248A65A13
+Sent tx: https://polygonscan.com/tx/0x8541494a73c8d246f3fe5d7c73bd307ddd356e69e6272165bdf29af1ca3c8509
+Tx complete, gas spent: 1593762
+Sending at index 3842, lines 3843...3944, addresses 0xaFFdbA0Ea423ba7631477E3F02835eD1c961A3Cd...0xB48cB1B9234866606562aB5Cb4B3Be11846BCfe0
+Sent tx: https://polygonscan.com/tx/0x47ecd23c078dc3ad4637304da9f30f3148e01f3bdd5982794ffed31fd8130eb0
+Tx complete, gas spent: 1456878
+Sending at index 3944, lines 3945...4047, addresses 0xb49395D924C9a946d50B93F9faafEDA0559Bf16d...0xb8Ea53A61e7622c36964075d8fCA69f459D6e15c
+Sent tx: https://polygonscan.com/tx/0xec41981ff9379209381dd79c63c8da4568031f999c2ae3ee229e62ff1243ff7a
+Tx complete, gas spent: 1439718
+Sending at index 4047, lines 4048...4148, addresses 0xB8Eb985fc13D433683302aE2e0B43b613208c68a...0xbD1AcE63011F59a3D3c11fC50646f7c8e6F3Ae65
+Sent tx: https://polygonscan.com/tx/0x8ba1899fb77dbe011621ae7f17eab1da32fa000059c58c3774aba7a9a67c16c5
+Tx complete, gas spent: 1456830
+Sending at index 4148, lines 4149...4252, addresses 0xbD1Da5589B33A6979fCDa2689ed08a57FE372785...0xc188d179454785147a47c996Bd7d6a54f66D63A1
+Sent tx: https://polygonscan.com/tx/0x393f696a77409422b7b8c23ed09f41cedb062561056b6693399a4803c9348f3f
+Tx complete, gas spent: 1507998
+Sending at index 4253, lines 4254...4356, addresses 0xC19d0566FAB55310D4e33F938ca722dB14Ed2473...0xC67B0Bf0afaC987d59C99430CdF2a5FcF6b602D4
+Sent tx: https://polygonscan.com/tx/0x4797de7257a1d4233fa2587460df7c32a6265390756f03672695aaa32d2f9577
+Tx complete, gas spent: 1473966
+Sending at index 4356, lines 4357...4458, addresses 0xc68AefCA9626359290378aC661147D2cdD1312fD...0xca8B08bD91470E76B5BB1612C747cea8620da7Ff
+Sent tx: https://polygonscan.com/tx/0xc20778984089dbd777231c554f82907966e5985a2d247df4781f7c9b49a7559d
+Tx complete, gas spent: 1542270
+Sending at index 4458, lines 4459...4560, addresses 0xca9cD10e5840AAf4E4e49c40b2c2E24D428afF1b...0xcf2AA350D1999A039932c8300ac1dee3e1556974
+Sent tx: https://polygonscan.com/tx/0x1fed08936389b430bce9dfc617b672ec323a1dc1003720c90921d0973d131256
+Tx complete, gas spent: 1542210
+Sending at index 4560, lines 4561...4662, addresses 0xCF2B7573c8ec378090Df073E2CCee0EbB4667b92...0xD33598CCA250150cB3c2C2ce127CbBA2eeEDd8e1
+Sent tx: https://polygonscan.com/tx/0x3c480e7c1229290016f4bf9fe17f404c49a2dc5ce7238082b332a8d1194b26d7
+Tx complete, gas spent: 1508166
+Sending at index 4662, lines 4663...4764, addresses 0xD34a5A0cC67Dd9e3951D420a638040478EcB6694...0xd7dd42840fc40a3ea582E8AA49Fa8dddcE8bf278
+Sent tx: https://polygonscan.com/tx/0x72f39ec64a4efd9d9287094e7d080cc3af323f8abe9c002751610981259de5cf
+Tx complete, gas spent: 1593618
+Sending at index 4764, lines 4765...4867, addresses 0xd7e68BE4A9dF51605aF8548A02fBc5bBFC1678FD...0xdC54C6Fc3FD9BB0c9c3d1F4e4E37AA702F40BEc3
+Sent tx: https://polygonscan.com/tx/0xe89a472766a60f76b9ccca350409fc85dc69b1aa6a33af167f82d38a9e6fce4f
+Tx complete, gas spent: 1542318
+Sending at index 4867, lines 4868...4969, addresses 0xdC57d26AF4e3a53421b26fEe0f0578a3DE257823...0xe1278Aa09ad61a93D5ff65C455692f05044C0436
+Sent tx: https://polygonscan.com/tx/0x2b0926bb2c551ba202edffb02264af1e27d7b4241f6c395e286c65187b2f471f
+Tx complete, gas spent: 1525254
+Sending at index 4969, lines 4970...5072, addresses 0xE12e182145c6277FbCb59e934AD03c4a8BCc2962...0xE5672CbF2782449b6B273772abB799643a4BD384
+Sent tx: https://polygonscan.com/tx/0x58022a669658491251ba5073f26ee6c401f0bb44343fafa3000df28e014e2d02
+Tx complete, gas spent: 1525134
+Sending at index 5072, lines 5073...5179, addresses 0xE56D0846E47ba83E6464FaAAB2dd41a1B9b3A2f9...0xeA26e5FCC3015E5fC5500AA31bF953Ee680076C7
+Sent tx: https://polygonscan.com/tx/0x5d522f140497165196bff9ec09fee07c9a86476a5481280ed8b0f3c8442277be
+Tx complete, gas spent: 1439742
+Sending at index 5179, lines 5180...5282, addresses 0xeA305381e22AfB68a8C5ef36A9B7D44b924c90b8...0xEEb82Ad3DD87f69a37D2af25bF3Ce6275254E75E
+Sent tx: https://polygonscan.com/tx/0xd8cf6eb0b3301b918ab5f268d97998bb883ce0e6421a6106eaf06c5481965369
+Tx complete, gas spent: 1661934
+Sending at index 5282, lines 5283...5382, addresses 0xeEbEE161768Bf7fEde5506D025630DC6E4383532...0xf2cac708e3FF74B69E1e41C1Aa203C65EF54edCa
+Sent tx: https://polygonscan.com/tx/0x34f54137ba95073e4468ae11df2325acaf426cd1528ae424f5189ebbd8c8ff9d
+Tx complete, gas spent: 1525326
+Sending at index 5382, lines 5383...5486, addresses 0xF2Dd90A9355B620EA4463B76AB9B753fEb435ABC...0xf77A758BBf59aCB5216b705D1248007Dee1037af
+Sent tx: https://polygonscan.com/tx/0x9da9a9bded92636c4b9d6435ebc156c83b2d73a8f7ec18c4e98a0dab369fe46c
+Tx complete, gas spent: 1456782
+Sending at index 5486, lines 5487...5589, addresses 0xF787Ccfe676d74513c7B08b371f61A1B0eA2C5Dc...0xFbDD0b2ecd4B742cD26f9C72e6f476355D8EcFAC
+Sent tx: https://polygonscan.com/tx/0x025eb15a2b5bca7b60d18b457aa8c62398c520672ae18cd7c0219d809915bb35
+Tx complete, gas spent: 1559382
+Sending at index 5589, lines 5590...5685, addresses 0xFbE236280600E5e1EB43A41800B64072a6999109...0xfFf8511d070486134AD9B1FAc6F4bBE0ADf41A06
+Sent tx: https://polygonscan.com/tx/0xf6e3badcbea133de49d3be8bfbd80af3421710baf2b37f231e5559fe25c4fad9
+Tx complete, gas spent: 1347433

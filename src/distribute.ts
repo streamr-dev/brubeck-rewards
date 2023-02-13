@@ -72,7 +72,7 @@ async function filterAddresses(addresses: string[], amounts: BigNumber[]): Promi
         return { addresses, amounts, failed: [], gasLimit }
     } catch (e) {
         const error = e as Error
-        if (!error.message.includes("Reverted")) { throw error }
+        if (!error.message.includes("everted")) { throw error }
     }
     // found it!
     if (addresses.length === 1) {

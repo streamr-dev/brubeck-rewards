@@ -51,7 +51,7 @@ async function main() {
             const [rawAddress, floatReward] = line.split(",")
             const index = +START + i
             // console.log("%s: %s, %s", index, rawAddress, floatReward)
-            const address = getAddress(rawAddress)
+            const address = getAddress(rawAddress.toLowerCase())
             const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
             sum = sum.add(reward)
             return { index, address, reward }

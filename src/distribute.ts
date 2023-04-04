@@ -18,6 +18,7 @@ const {
     SLEEP_MS = "1000",
     GASPRICE_GWEI = "100",
     ETHEREUM_URL = "https://polygon-rpc.com",
+    YES = "0", // confirmation prompt in case there's too many tokens
     KEY,
     ADDRESS,
 } = process.env
@@ -62,13 +63,14 @@ const forbiddenAddresses = new Set([
  * @returns gasLimit if all addresses are good, undefined if some addresses were bad. This is to save a gas estimation call if all addresses were good.
  */
 async function filterAddresses(addresses: string[], amounts: BigNumber[]): Promise<{ addresses: string[], amounts: BigNumber[], failed: string[], gasLimit?: BigNumber }> {
-    // console.log("filterAddresses: %o", addrs)
+    // console.log("filterAddresses: %o", addresses)
     if (addresses.length < 1) { throw new Error("filterAddresses: empty addresses array") }
     if (addresses.length !== amounts.length) { throw new Error("filterAddresses: addresses and amounts arrays have different lengths") }
 
     let gasLimit = BigNumber.from(0)
     try {
         gasLimit = await distributor.estimateGas.send(addresses, amounts, { gasPrice })
+        // console.log("Got gas limit: %s", gasLimit.toString())
         return { addresses, amounts, failed: [], gasLimit }
     } catch (e) {
         const error = e as Error
@@ -103,7 +105,7 @@ async function sendRewards(targets: Target[]) {
     }
 
     const opts: Overrides = { gasPrice }
-    if (filtered.gasLimit) { opts.gasLimit = filtered.gasLimit } // if there were no failed addresses, skip re-asking the gas limit
+    // if (filtered.gasLimit) { opts.gasLimit = filtered.gasLimit } // if there were no failed addresses, skip re-asking the gas limit
     const tx = await distributor.send(filtered.addresses, filtered.amounts, opts)
     console.log("Sent tx: https://polygonscan.com/tx/%s", tx.hash)
     const tr = await tx.wait()
@@ -119,7 +121,7 @@ async function main() {
         .map((line, i): Target => {
             const [rawAddress, floatReward] = line.split(",")
             // console.log("%s: %s, %s", index, rawAddress, floatReward)
-            const address = getAddress(rawAddress)
+            const address = getAddress(rawAddress.toLowerCase())
             const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
             sum = sum.add(reward)
             const index = startIndex + i
@@ -134,6 +136,9 @@ async function main() {
     const tokenBalance = await token.balanceOf(contractAddress)
     if (tokenBalance.lt(sum)) {
         throw new Error(`Not enough tokens in the contract ${contractAddress}: ${formatEther(tokenBalance)} < ${formatEther(sum)}, difference = ${formatEther(sum.sub(tokenBalance))}`)
+    }
+    if (tokenBalance.gt(sum.mul(101).div(100)) && YES !== "1") {
+        throw new Error(`Contract ${contractAddress} has too many tokens: ${formatEther(tokenBalance)} > ${formatEther(sum)}, difference = ${formatEther(tokenBalance.sub(sum))}. If you are sure this is correct, run again with YES=1`)
     }
     const nativeBalance = await provider.getBalance(contractAddress)
     const stipendWei = await distributor.stipend()

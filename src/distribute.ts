@@ -63,21 +63,23 @@ const forbiddenAddresses = new Set([
  * @returns gasLimit if all addresses are good, undefined if some addresses were bad. This is to save a gas estimation call if all addresses were good.
  */
 async function filterAddresses(addresses: string[], amounts: BigNumber[]): Promise<{ addresses: string[], amounts: BigNumber[], failed: string[], gasLimit?: BigNumber }> {
-    // console.log("filterAddresses: %o", addresses)
+    // console.log("filterAddresses count: %s", addresses.length)
     if (addresses.length < 1) { throw new Error("filterAddresses: empty addresses array") }
     if (addresses.length !== amounts.length) { throw new Error("filterAddresses: addresses and amounts arrays have different lengths") }
 
     let gasLimit = BigNumber.from(0)
     try {
-        gasLimit = await distributor.estimateGas.send(addresses, amounts, { gasPrice })
+        gasLimit = await distributor.estimateGas.send(addresses, amounts)//, { gasPrice })
         // console.log("Got gas limit: %s", gasLimit.toString())
         return { addresses, amounts, failed: [], gasLimit }
     } catch (e) {
         const error = e as Error
-        if (!error.message.includes("everted")) { throw error }
+        const failedTx = error.message.includes("everted") || error.message.includes("cannot estimate gas")
+        if (!failedTx) { throw error }
     }
     // found it!
     if (addresses.length === 1) {
+        console.log("Skipping address %s", addresses[0])
         return { addresses: [], amounts: [], failed: addresses, gasLimit: BigNumber.from(0) }
     }
     const partitionIndex = Math.floor(addresses.length / 2)
@@ -105,7 +107,7 @@ async function sendRewards(targets: Target[]) {
     }
 
     const opts: Overrides = { gasPrice }
-    // if (filtered.gasLimit) { opts.gasLimit = filtered.gasLimit } // if there were no failed addresses, skip re-asking the gas limit
+    if (filtered.gasLimit) { opts.gasLimit = filtered.gasLimit } // if there were no failed addresses, skip re-asking the gas limit
     const tx = await distributor.send(filtered.addresses, filtered.amounts, opts)
     console.log("Sent tx: https://polygonscan.com/tx/%s", tx.hash)
     const tr = await tx.wait()

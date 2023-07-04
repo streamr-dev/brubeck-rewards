@@ -9,4 +9,6 @@ export INPUT=data/${DATE}-rewards.csv
 npx ts-node src/distribute.ts |tee -a logs/log-${DATE}-rewards.txt
 npx ts-node src/check.ts 2>&1 |tee -a logs/log-${DATE}-check.txt
 grep --after=2 fail logs/log-${DATE}-check.txt |grep -v "\[" > logs/${DATE}-todo-check.txt
-# npx ts-node src/sweep-leftovers.ts |tee -a logs/log-${DATE}-rewards.txt
+
+#export TARGET=
+#npx ts-node src/sweep-leftovers.ts |tee -a logs/log-${DATE}-rewards.txt

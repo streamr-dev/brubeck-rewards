@@ -24,7 +24,7 @@ contract Distributor is Ownable {
             address recipient = recipients[i];
             uint amount = amounts[i];
             require(token.transfer(recipient, amount), "error_transfer");
-            payable(recipient).transfer(stipend);
+            payable(recipient).send(stipend);
         }
     }
 

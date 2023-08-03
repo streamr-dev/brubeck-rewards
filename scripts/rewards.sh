@@ -10,5 +10,5 @@ npx ts-node src/distribute.ts |tee -a logs/log-${DATE}-rewards.txt
 npx ts-node src/check.ts 2>&1 |tee -a logs/log-${DATE}-check.txt
 grep --after=2 fail logs/log-${DATE}-check.txt |grep -v "\[" > logs/${DATE}-todo-check.txt
 
-#export TARGET=
+#export TARGET=0xd24aEFDDF905Cf927cB643FeBf6eC06ECc9D7802
 #npx ts-node src/sweep-leftovers.ts |tee -a logs/log-${DATE}-rewards.txt

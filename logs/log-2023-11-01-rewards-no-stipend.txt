@@ -1,0 +1,9 @@
+Connected to network {
+  name: 'matic',
+  chainId: 137,
+  ensAddress: null,
+  _defaultProvider: null
+}
+Distributing 328.219 tokens in total to 1 addresses
+Sent tx: https://polygonscan.com/tx/0xf6b87c8edc73437c046b1e2f18610a44130235c47bf12aeb1455a2389a1a482c
+Tx complete, gas spent: 51471

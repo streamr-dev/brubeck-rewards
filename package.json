@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
-    "@streamr/config": "2.4.0",
+    "@streamr/config": "^4.0.0",
     "ts-node": "^10.8.2",
     "typescript": "^4.7.4"
   },

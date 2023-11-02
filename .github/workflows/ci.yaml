@@ -47,7 +47,7 @@ jobs:
       - name: Start Streamr Docker Stack
         uses: streamr-dev/streamr-docker-dev-action@v1.0.0-alpha.3
         with:
-          services-to-start: 'parity-node0'
+          services-to-start: 'dev-chain-fast'
       - name: Integration Test
         run: |
           npm run deploy

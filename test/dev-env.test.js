@@ -13,8 +13,8 @@ const {
     ContractFactory
 } = require("ethers")
 
-const { networks: {
-    dev0: {
+const {
+    dev2: {
         rpcEndpoints: [
             {
                 url: ethereumUrl
@@ -24,7 +24,7 @@ const { networks: {
             DATA: tokenAddress
         }
     }
-} } = require("@streamr/config")
+} = require("@streamr/config").config
 
 const distributorDeploymentJson = require("../deployments/dev/Distributor.json")
 
@@ -36,6 +36,7 @@ const env = {
     KEY: "0x5e98cce00cff5dea6b454889f359a4ec06b9fa6b88e9d69b86de8e1c81887da0",
     STATE_FILE_NAME: "",
     ADDRESS: distributorDeploymentJson.address,
+    YES: "1", // override "too many tokens" check
 }
 
 const provider = new JsonRpcProvider(ethereumUrl)
@@ -88,7 +89,7 @@ describe("Rewards distribution", () => {
         assert.equal(tokenBalanceAfter.toString(), "0")
     })
 
-    it("skips smart contract recipients that cause the contract to revert", async function() {
+    it("skips stipend for smart contract recipients that revert on receiving native-token", async function() {
         this.timeout(60000)
 
         // the TestToken can't receive the stipend, so the tx will throw. Add its address to the list
@@ -120,9 +121,10 @@ describe("Rewards distribution", () => {
         assert(goodBalance.gte(goodAmount))
         assert(goodNativeBalance.gte(parseEther("0.009")))
 
+        // they do get tokens, just skip the stipend
         const badBalance = await token.balanceOf(testToken.address)
         const badNativeBalance = await provider.getBalance(testToken.address)
-        assert.equal(badBalance.toString(), "0")
+        assert.equal(badBalance.toString(), parseEther("1").toString())
         assert.equal(badNativeBalance.toString(), "0")
     })
 })

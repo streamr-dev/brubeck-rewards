@@ -11,6 +11,8 @@ contract Distributor is Ownable {
 
     uint public stipend = 0.01 ether; // estimate from https://polygonscan.com/tokentxns
 
+    event StipendSendingFailed(address recipient);
+
     constructor(address _token) Ownable() {
         token = IERC20(_token);
         agent = owner();
@@ -24,7 +26,13 @@ contract Distributor is Ownable {
             address recipient = recipients[i];
             uint amount = amounts[i];
             require(token.transfer(recipient, amount), "error_transfer");
-            payable(recipient).send(stipend);
+
+            // use send instead of transfer to ignore if send fails
+            // we don't want the receiving contract to stop the distribution here
+            // if they don't want the stipend, then they revert, that's fine.
+            if (!payable(recipient).send(stipend)) {
+                emit StipendSendingFailed(recipient);
+            }
         }
     }
 

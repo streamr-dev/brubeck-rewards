@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.6;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -9,7 +9,7 @@ contract Distributor is Ownable {
 
     address public agent;
 
-    uint public stipend = 0.01 ether; // estimate from https://polygonscan.com/tokentxns
+    uint public stipend; // = 0.01 ether; // estimate from https://polygonscan.com/tokentxns
 
     event StipendSendingFailed(address recipient);
 
@@ -30,8 +30,10 @@ contract Distributor is Ownable {
             // use send instead of transfer to ignore if send fails
             // we don't want the receiving contract to stop the distribution here
             // if they don't want the stipend, then they revert, that's fine.
-            if (!payable(recipient).send(stipend)) {
-                emit StipendSendingFailed(recipient);
+            if (stipend > 0) {
+                if (!payable(recipient).send(stipend)) {
+                    emit StipendSendingFailed(recipient);
+                }
             }
         }
     }

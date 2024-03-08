@@ -121,10 +121,11 @@ async function main() {
     let sum = parseEther("0")
     const input = rawInput
         .map((line, i): Target => {
-            const [rawAddress, floatReward] = line.split(",")
+            const [rawAddress, rewardString] = line.split(",")
             // console.log("%s: %s, %s", index, rawAddress, floatReward)
             const address = getAddress(rawAddress.toLowerCase())
-            const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
+            // const reward = parseEther(floatReward.toString().slice(0, 20)) // remove decimals past 18th, otherwise parseEther throws
+            const reward = BigNumber.from(rewardString)
             sum = sum.add(reward)
             const index = startIndex + i
             return { index, address, reward }

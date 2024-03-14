@@ -1,0 +1,19 @@
+Connected to network {
+  name: 'matic',
+  chainId: 137,
+  ensAddress: null,
+  _defaultProvider: null
+}
+Starting from index 0, 6 in total, expecting 83604.879820232056740566 tokens and 0.0 native-tokens in total
+83606.576059619634533485 tokens and 0.0 native-tokens left in the contract
+[ OK ] 0 0x2B3F372492706913bb60Fa869605Cd5D8acc3Cd0
+[fail] 1 0x7164a0fCb0E34B5Bbf868bAF97DF791Da6c9FF60
+0x7164a0fCb0E34B5Bbf868bAF97DF791Da6c9FF60 DATA  0 < 4950000000000000000000
+[fail] 2 0x7164a0fCb0E34B5Bbf868bAF97DF791Da6c9FF60
+0x7164a0fCb0E34B5Bbf868bAF97DF791Da6c9FF60 DATA  0 < 4950000000000000000000
+[ OK ] 3 0xD00df26e28473C8DAd5096B5E857EA7422aE5977
+[ OK ] 4 0x2611f2475291d3091a129581388a37725ca1E1f3
+[ OK ] 5 0x7673b1316c94B0bb7135dD32B812AB81C5097Fc7
+4 / 6 OK
+
+[[ manual check confirms all got their tokens, this was again due to checking too soon ]]

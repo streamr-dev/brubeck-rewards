@@ -16,7 +16,7 @@ const {
     END = "Infinity",
     BATCH_SIZE = "100",
     SLEEP_MS = "1000",
-    GASPRICE_GWEI = "100",
+    GAS_PRICE_GWEI = "100",
     ETHEREUM_URL = "https://polygon-rpc.com",
     YES = "0", // confirmation prompt in case there's too many tokens
     KEY,
@@ -31,7 +31,7 @@ const batchSize = +BATCH_SIZE
 const sleepMs = +SLEEP_MS
 const startIndex = +START
 
-const gasPrice = parseUnits(GASPRICE_GWEI, "gwei")
+const gasPrice = parseUnits(GAS_PRICE_GWEI, "gwei")
 
 const provider = new JsonRpcProvider(ETHEREUM_URL)
 const wallet = new Wallet(KEY, provider)

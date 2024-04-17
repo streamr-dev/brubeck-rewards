@@ -1,0 +1,16 @@
+Connected to network {
+  name: 'matic',
+  chainId: 137,
+  ensAddress: null,
+  _defaultProvider: null
+}
+Starting from index 0, 298 in total, distributing 44665.833460991696518562 tokens in total
+Sending at index 0, lines 1...100, addresses 0x23cb2fc1edEdEEb186eC022584c41588177A0c97...0x857776B520187618D34AADC9E68d9e4525e504C1
+Sent tx: https://polygonscan.com/tx/0x36c0c94b20504e1e86cebfc696972e8e162796d52e47f100d67b9529714c2920
+Tx complete, gas spent: 915694
+Sending at index 100, lines 101...200, addresses 0x8745883F8042E53961213107f6D00ACb0889C914...0x7EEa746B89E655Bc9cEB818E56365e584B16438D
+Sent tx: https://polygonscan.com/tx/0xc65c48b66c8545fdee22fd8b1d93595d34cb451dde9d19498513a3d752a2e6d9
+Tx complete, gas spent: 856774
+Sending at index 200, lines 201...298, addresses 0x39A04A1e92f7EF870Ad56E3a942Be2ec806bb7a0...0xC79eB1b0A3dFb8DB5c05B39d82Ce32DfB2EfEF4b
+Sent tx: https://polygonscan.com/tx/0x1126da77a3c3a765a57eb97228afe6628410ce3776a129a0205d32b1990d0803
+Tx complete, gas spent: 789356

@@ -1,0 +1,15 @@
+Connected to network {
+  name: 'matic',
+  chainId: 137,
+  ensAddress: null,
+  _defaultProvider: null
+}
+Starting from index 0, 6 in total, expecting 30000.0 tokens and 0.0 native-tokens in total
+6688.699405830936210689 tokens and 0.0 native-tokens left in the contract
+[ OK ] 0 0x13759dFE2D73255e381b031c8dC433C188a58365
+[ OK ] 1 0x583eeBb8c3178C0Ee4fa4C74536b987871Ade682
+[ OK ] 2 0x056AA97AF2fE488e596795B899b26fF4a79Bf129
+[ OK ] 3 0x056AA97AF2fE488e596795B899b26fF4a79Bf129
+[ OK ] 4 0x056AA97AF2fE488e596795B899b26fF4a79Bf129
+[ OK ] 5 0x1066A983a43784a5cA8D1D07BBbE001e6B3E4F9F
+6 / 6 OK
